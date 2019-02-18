@@ -3,11 +3,8 @@ var async = require('async');
 
 var User = mongoose.model('User');
 var Profile = mongoose.model('Profile');
-var Resume = mongoose.model('Resume');
 
 module.exports.profileRead = function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   if (!req.payload._id) {
     console.log("Unauthorized");
     res.status(401).json({
@@ -30,8 +27,6 @@ module.exports.profileRead = function(req, res, next) {
 };
 
 module.exports.addProfileCustomization = function(req,res) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   console.log("Adding cust profile..");
   if (!req.payload._id) {
     res.status(401).json({
@@ -97,8 +92,6 @@ module.exports.addProfileCustomization = function(req,res) {
 }
 
 module.exports.gelAllProfiles = function(req,res,next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   if (!req.payload._id) {
     console.log("Unauthorized");
     res.status(401).json({
@@ -110,6 +103,8 @@ module.exports.gelAllProfiles = function(req,res,next) {
         .exec(function(err, profiles){
           if(err){return next(err); }
           // Successful, so render
+          res.header("Access-Control-Allow-Origin", "*");
+          res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
            console.log(res);
           res.status(200).json(profiles);
         });

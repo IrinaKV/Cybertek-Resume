@@ -36,6 +36,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(cors());
 
+// const originsWhitelist  = ['http://localhost:4200','https://cybertek-resume-server.herokuapp.com']
+// // var corsOptions = {
+// //     origin: function(origin, callback){
+// //         var isWhitelisted = originsWhitelist.indexOf(origin) !== -1;
+// //         callback(null, isWhitelisted);
+// //     },
+// //     credentials:true
+// // }
+// // app.use(cors(corsOptions));
+
 // [SH] Initialise Passport before using the route middleware
 app.use(passport.initialize());
 
@@ -82,10 +92,10 @@ app.use(function(err, req, res, next) {
 });
 
 //CORS
-app.use(function(req, res, next) {
-   res.header("Access-Control-Allow-Origin", "*");
-   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-   next();
-});
+// app.use(function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//     next();
+// });
 
 module.exports = app;
