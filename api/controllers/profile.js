@@ -5,7 +5,7 @@ var User = mongoose.model('User');
 var Profile = mongoose.model('Profile');
 var Resume = mongoose.model('Resume');
 
-module.exports.profileRead = function(req, res) {
+module.exports.profileRead = function(req, res, next) {
   if (!req.payload._id) {
     console.log("Unauthorized");
     res.status(401).json({
@@ -91,7 +91,7 @@ module.exports.addProfileCustomization = function(req,res) {
   }
 }
 
-module.exports.gelAllProfiles = function(req,res) {
+module.exports.gelAllProfiles = function(req,res,next) {
   if (!req.payload._id) {
     console.log("Unauthorized");
     res.status(401).json({
