@@ -8,8 +8,8 @@ var sendJSONresponse = function(res, status, content) {
 };
 
 module.exports.register = function(req, res) {
-   res.header("Access-Control-Allow-Origin", "*");
-   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
   // if(!req.body.name || !req.body.email || !req.body.password) {
   //   sendJSONresponse(res, 400, {
@@ -49,8 +49,8 @@ module.exports.register = function(req, res) {
 };
 
 module.exports.login = function(req, res) {
-   res.header("Access-Control-Allow-Origin", "*");
-   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+   res.set("Access-Control-Allow-Origin", "*");
+   res.set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
   if(!req.body.email || !req.body.password) {
     sendJSONresponse(res, 400, {
