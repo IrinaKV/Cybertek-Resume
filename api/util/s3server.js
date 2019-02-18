@@ -15,7 +15,8 @@ aws.config.update({
     // Never share it!
     // Setup Env Variable, e.g: process.env.ACCESS_KEY_ID
 
-      accessKeyId: "AKIAIXQWQ2VMX4DGNDCA",
+//      accessKeyId: "AKIAIXQWQ2VMX4DGNDCA",
+      accessKeyId: "AKIAIHXX5UXQBLHEPDIA",
     //accessKeyId: accessKeyId,
     region: 'us-east-1' // region of your bucket
 });
