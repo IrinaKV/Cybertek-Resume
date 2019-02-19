@@ -35,17 +35,8 @@
     "gulp-uglify": "^1.2.0",
     "gulp-watch": "^4.3.4"
   },
-  "description": "To run, you just have MongoDB installed and running, and NodeJS installed.",
-  "main": "app.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sitepoint-editors/MEAN-stack-authentication.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/sitepoint-editors/MEAN-stack-authentication/issues"
-  },
-  "homepage": "https://github.com/sitepoint-editors/MEAN-stack-authentication#readme"
+  "engines": {
+    "node": "8.11.4",
+    "npm": "5.6.0"
+  }
 }
