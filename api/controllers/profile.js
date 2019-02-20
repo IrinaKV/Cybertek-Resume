@@ -115,7 +115,6 @@ module.exports.gelProfiles = function(req,res,next) {
         .exec(function(err, profiles){
           if(err){return next(err); }
           // Successful, so render
-          console.log(res);
           res.status(200).json(profiles);
         });
 }
