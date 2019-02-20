@@ -23,9 +23,11 @@ require('./api/config/passport');
 var routesApi = require('./api/routes/index');
 var app = express();
 
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -36,6 +38,7 @@ app.use(cookieParser());
 
 app.use(cors());
 app.options('*', cors());
+
 
 // const originsWhitelist  = ['http://localhost:4200','https://cybertek-frontend.herokuapp.com']
 // var corsOptions = {

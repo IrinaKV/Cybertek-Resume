@@ -14,6 +14,7 @@ var resume = require('../controllers/resume');
 router.get('/profile', auth, ctrlProfile.profileRead);
 router.post('/addProfile',auth,ctrlProfile.addProfileCustomization);
 router.get('/get-all-profiles',auth,ctrlProfile.gelAllProfiles);
+router.get('/get-profiles',ctrlProfile.gelProfiles);
 
 //router.post('/upload',auth,ctrlProfile.uploadFile);
 router.post('/upload',auth,resume.uploadFile);

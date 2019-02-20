@@ -103,12 +103,20 @@ module.exports.gelAllProfiles = function(req,res,next) {
         .exec(function(err, profiles){
           if(err){return next(err); }
           // Successful, so render
-          res.header("Access-Control-Allow-Origin", "*");
-          res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
            console.log(res);
           res.status(200).json(profiles);
         });
   }
 }
 
+module.exports.gelProfiles = function(req,res,next) {
+    console.log("Getting Profiles");
+    User.find({role:'student'}).populate('profile').populate('resume').sort({ resume: 'desc' })
+        .exec(function(err, profiles){
+          if(err){return next(err); }
+          // Successful, so render
+          console.log(res);
+          res.status(200).json(profiles);
+        });
+}
 
