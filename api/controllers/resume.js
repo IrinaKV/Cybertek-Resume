@@ -8,12 +8,8 @@ var User = mongoose.model('User');
 const singleUpload = upload.single('file');
 module.exports.uploadFile = function (req, res) {
     const role = req.query.role;
-    console.log(req.query.fileType);
-    console.log(req.query.role);
-    console.log("ID: "+req.payload._id);
     console.log("Uploading file..");
-    // Get current date in milliseconds(since midnight, 1 Jan 1970)
-    var date = new Date().getTime();
+    var date = new Date();
     // console.log(date.toLocaleDateString("en-US"));
     console.log(date);
     if (!req.payload._id) {
@@ -35,7 +31,6 @@ module.exports.uploadFile = function (req, res) {
             },
             function assignUrlToResume(url, availableCallback) {
                 let resume = new Resume();
-               // resume.submitted_date = date.toLocaleDateString("en-US");
                 resume.submitted_date = date;
                 if(req.query.resumeId !== 'undefined'){
                     Resume.findById(req.query.resumeId, function(err, resume){
