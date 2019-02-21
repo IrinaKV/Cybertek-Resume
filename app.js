@@ -22,8 +22,7 @@ require('./api/config/passport');
 // [SH] Bring in the routes for the API (delete the default routes)
 var routesApi = require('./api/routes/index');
 var app = express();
-app.use(cors());
-app.options('*', cors());
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -37,9 +36,8 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-
-// app.use(cors());
-// app.options('*', cors());
+app.use(cors());
+app.options('*', cors());
 
 
 // const originsWhitelist  = ['http://localhost:4200','https://cybertek-frontend.herokuapp.com']
@@ -70,12 +68,10 @@ app.use(function(req, res, next) {
 
 // [SH] Catch unauthorised errors
 app.use(function (err, req, res, next) {
-    console.log(err);
-    res.send(err);
-  // if (err.name === 'UnauthorizedError') {
-  //   res.status(401);
-  //   res.json({"message" : err.name + ": " + err.message});
-  // }
+  if (err.name === 'UnauthorizedError') {
+    res.status(401);
+    res.json({"message" : err.name + ": " + err.message});
+  }
 });
 
 // development error handler
