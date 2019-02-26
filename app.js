@@ -3,15 +3,15 @@
   Each is commented and marked with [SH] to make them easy to find
  */
 
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var cors = require('cors');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const cors = require('cors');
 // [SH] Require Passport
-var passport = require('passport');
+const passport = require('passport');
 
 // [SH] Bring in the data model
 require('./api/models/db');
@@ -20,8 +20,8 @@ require('./api/config/passport');
 
 
 // [SH] Bring in the routes for the API (delete the default routes)
-var routesApi = require('./api/routes/index');
-var app = express();
+const routesApi = require('./api/routes/index');
+const app = express();
 
 
 // view engine setup
@@ -96,11 +96,5 @@ app.use(function(err, req, res, next) {
     });
 });
 
-//CORS
-// app.use(function(req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//     next();
-// });
 
 module.exports = app;

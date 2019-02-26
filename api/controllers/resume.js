@@ -1,15 +1,16 @@
-var mongoose = require('mongoose');
-var async = require('async');
-
+const mongoose = require('mongoose');
+const async = require('async');
 const upload = require('../util/s3server');
-var Resume = mongoose.model('Resume');
-var User = mongoose.model('User');
-
+const Resume = mongoose.model('Resume');
+const User = mongoose.model('User');
+const mail = require('../util/emailUtils');
 const singleUpload = upload.single('file');
-module.exports.uploadFile = function (req, res) {
+
+
+exports.uploadFile = function (req, res) {
     const role = req.query.role;
     console.log("Uploading file..");
-    var date = new Date();
+    const date = new Date();
     // console.log(date.toLocaleDateString("en-US"));
     console.log(date);
     if (!req.payload._id) {
@@ -32,28 +33,28 @@ module.exports.uploadFile = function (req, res) {
             function assignUrlToResume(url, availableCallback) {
                 let resume = new Resume();
                 resume.submitted_date = date;
-                if(req.query.resumeId !== 'undefined'){
-                    Resume.findById(req.query.resumeId, function(err, resume){
-                        if(err){
-                            console.log("Error during updating Resume data"+err.toString());
+                if (req.query.resumeId !== 'undefined') {
+                    Resume.findById(req.query.resumeId, function (err, resume) {
+                        if (err) {
+                            console.log("Error during updating Resume data" + err.toString());
                             res.status(500).json({
                                 "message": "Error during the updating Resume"
                             });
-                        }else{
-                            if(role === 'student'){
+                        } else {
+                            if (role === 'student') {
                                 resume.student_resume = url;
-                            }else{
+                            } else {
                                 resume.cybertek_resume = url;
                                 resume.status = 'completed';
                             }
 
-                            resume.save(function(err,resume){
-                                if(err){
-                                    console.log("Error during updating Resume data"+err.toString());
+                            resume.save(function (err, resume) {
+                                if (err) {
+                                    console.log("Error during updating Resume data" + err.toString());
                                     res.status(500).json({
                                         "message": "Error during the updating Resume"
                                     });
-                                }else{
+                                } else {
                                     console.log("updated!");
                                     res.status(202).send(resume);
                                 }
@@ -62,14 +63,14 @@ module.exports.uploadFile = function (req, res) {
                         }
 
                     });
-                }else{
-                   // resume.user = req.payload._id;
+                } else {
+                    // resume.user = req.payload._id;
                     resume.student_resume = url;
                     resume.status = 'submitted';
 
-                    resume.save(function (err,resume) {
+                    resume.save(function (err, resume) {
                         if (err) {
-                            console.log("Error during saving Resume data"+err.toString());
+                            console.log("Error during saving Resume data" + err.toString());
                             res.status(500).json({
                                 "message": "Error during the saving Resume"
                             });
@@ -82,14 +83,14 @@ module.exports.uploadFile = function (req, res) {
                                     });
                                 } else {
                                     user.resume = resume._id;
-                                    user.save(function(err){
-                                        if(err){
+                                    user.save(function (err) {
+                                        if (err) {
                                             console.log("Error during saving user data");
                                             res.status(500).json({
                                                 "message": "Error during saving user data"
                                             });
-                                        }else{
-                                            console.log("user data updated!"+user);
+                                        } else {
+                                            console.log("user data updated!" + user);
                                             res.status(202).send(resume);
                                         }
                                     });
@@ -98,7 +99,7 @@ module.exports.uploadFile = function (req, res) {
                         }
                     });
                 }
-              }
+            }
         ], function (error) {
             if (error) {
                 //handle readFile error or processFile error here
@@ -108,7 +109,59 @@ module.exports.uploadFile = function (req, res) {
     }
 }
 
-module.exports.updateResume = function (req, res) {
+exports.deleteResume = function (req, res) {
+    if (!req.payload._id) {
+        console.log("Unauthorized");
+        res.status(401).json({
+            "message": "UnauthorizedError: private profile"
+        });
+    } else {
+        const resumeId = req.body.resume._id;
+        Resume.remove({_id: resumeId}, function (err) {
+            if (err) {
+                res.status(401).json({
+                    "message" : "Delete Resume failed"
+                });
+            } else {
+                console.log('Resume removed');
+                User.findById(req.body._id, function (err, user) {
+                    if (err) {
+                        console.log("Error finding user: " + err);
+                        res.status(500).json({
+                            "message": "Error finding user data"
+                        });
+                    } else {
+                        user.resume = undefined;
+                        user.save(function (err) {
+                            if (err) {
+                                console.log(err);
+                                res.status(500).json({
+                                    "message": "Error saving user data"
+                                });
+                            } else {
+
+                                mail.sendEmail("Suranchiyev96@gmail.com",
+                                    `<p>Hello ${req.body.first_name} ${req.body.last_name}!</p>
+                                                 We want you resubmit your resume. For more details please contact:
+                                                   <ul>
+                                                    <li><strong>Kekenus - </strong>kekenus@cybertekschool.com</li>
+                                                    <li><strong>Jessica - </strong>jessica@cybertekschool.com</li>
+                                                   </ul>
+                                                    <br>
+                                                    <br>
+                                                <p>Best,</p>                         
+                                                <p>Cybertek Team</p>`);
+                                res.status(201).send(user);
+                            }
+                        })
+                    }
+                });
+            }
+        });
+    }
+}
+
+exports.updateResume = function(req, res){
     if (!req.payload._id) {
         console.log("Unauthorized");
         res.status(401).json({
@@ -143,9 +196,5 @@ module.exports.updateResume = function (req, res) {
                 });
             }
         });
-
-
-
-
     }
 }

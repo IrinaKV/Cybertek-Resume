@@ -3,6 +3,7 @@ var crypto = require('crypto');
 var jwt = require('jsonwebtoken');
 
 var Schema = mongoose.Schema;
+const secret = process.env.PRIVATE_KEY_TOKEN;
 
 var userSchema = Schema({
   email: {type: String, unique: true, required: true},
@@ -38,7 +39,7 @@ userSchema.methods.generateJwt = function() {
     name: this.name,
     role: this.role,
       exp: parseInt(expiry.getTime() / 1000),
-  }, process.env.PRIVATE_KEY_TOKEN);
+  }, secret);
 
   //   exp: parseInt(expiry.getTime() / 1000),
   // }, "MY_SECRET"); // DO NOT KEEP YOUR SECRET IN THE CODE!

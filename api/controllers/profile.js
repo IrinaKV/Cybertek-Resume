@@ -103,7 +103,7 @@ module.exports.gelAllProfiles = function(req,res,next) {
         .exec(function(err, profiles){
           if(err){return next(err); }
           // Successful, so render
-           console.log(res);
+           //console.log(res);
           res.status(200).json(profiles);
         });
   }

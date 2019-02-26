@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
 var gracefulShutdown;
 
-var dbURI = 'mongodb://app000:app000@ds229552.mlab.com:29552/local_library_cyber_check';
-//var dbURI = process.env.D_MONGODB;
+
+const dbURI = process.env.D_MONGODB;
 // if (process.env.NODE_ENV === 'production') {
 //   dbURI = process.env.MONGOLAB_URI;
 // }
