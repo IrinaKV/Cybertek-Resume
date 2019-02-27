@@ -27,7 +27,8 @@ const students = [
   'alikilic27@hotmail.com',
   'macikgozm@gmail.com',
   'tarikgulbas@yahoo.com',
-  'kekenus.s@gmail.com'
+  'kekenus.s@gmail.com',
+  'Suranchiyev96@gmail.com'
 ];
 
 const admins = ['kekenus@cybertekschool.com','jessica@cybertekschool.com','bek@gmail.com'];
