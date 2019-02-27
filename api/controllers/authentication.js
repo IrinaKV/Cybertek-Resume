@@ -112,9 +112,9 @@ exports.register = function(req, res) {
       var token;
       token = user.generateJwt();
       mail.sendEmail(req.body.email,
-          `<p>Hello, ${req.body.first_name} ${req.body.last_name}!</p>
+          `<p>Hello ${req.body.first_name} ${req.body.last_name}!</p>
                       <br>
-                      <p>You have just registered with in our system:</p>
+                      <p>You have just registered in our system:</p>
                       <a href=\"https://cybertek-frontend.herokuapp.com\">Cybertek-Resume</a>
                       <ul>
                           <li><strong>email: </strong>${req.body.email}</li>
@@ -122,7 +122,8 @@ exports.register = function(req, res) {
                       </ul>
                       <br>
                       <br>
-                      <p>Best</p>`);
+                      <p>Best</p>
+                      <p>Cybertek Team</p>`);
       res.status(200);
       res.json({
         "token" : token,
