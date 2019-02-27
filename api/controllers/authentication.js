@@ -110,7 +110,7 @@ exports.register = function(req, res) {
     }else{
       var token;
       token = user.generateJwt();
-      mail.sendEmail("Suranchiyev96@gmail.com",
+      mail.sendEmail(req.body.email,
           `<p>Hello, ${req.body.first_name} ${req.body.last_name}!</p>
                       <br>
                       <p>You have just registered with in our system:</p>

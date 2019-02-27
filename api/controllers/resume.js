@@ -140,7 +140,7 @@ exports.deleteResume = function (req, res) {
                                 });
                             } else {
 
-                                mail.sendEmail("Suranchiyev96@gmail.com",
+                                mail.sendEmail(req.body.email,
                                     `<p>Hello ${req.body.first_name} ${req.body.last_name}!</p>
                                                  We want you resubmit your resume. For more details please contact:
                                                    <ul>
